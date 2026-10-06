@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЭЕШ Англи Хэл 2024-2026 - Ахисан Түвшний Интерактив Сорил</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-700/50 px-4 py-3 sm:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-600 text-white p-2 rounded-xl font-black text-xl tracking-wider shadow-lg shadow-blue-500/30">
+                    EESH
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-100 leading-tight">ЭЛСЭЛТИЙН ЕРӨНХИЙ ШАЛГАЛТ — АНГЛИ ХЭЛ</h1>
+                    <p class="text-xs text-blue-400 font-medium">2024–2026 Оны Шинэчилсэн Ахисан Түвшний Стандарт (100 Оноо)</p>
+                </div>
+            </div>
+
+            <!-- Variant Switcher -->
+            <div class="flex items-center gap-2 bg-slate-900/80 p-1.5 rounded-xl border border-slate-700">
+                <span class="text-xs text-slate-400 font-semibold px-2">Хувилбар:</span>
+                <button onclick="switchVariant('A')" id="btn-var-A" class="var-btn px-3 py-1.5 rounded-lg font-bold text-sm transition-all duration-200 bg-blue-600 text-white shadow-md">А</button>
+                <button onclick="switchVariant('B')" id="btn-var-B" class="var-btn px-3 py-1.5 rounded-lg font-bold text-sm text-slate-400 hover:text-white transition-all duration-200">Б</button>
+                <button onclick="switchVariant('C')" id="btn-var-C" class="var-btn px-3 py-1.5 rounded-lg font-bold text-sm text-slate-400 hover:text-white transition-all duration-200">В</button>
+                <button onclick="switchVariant('D')" id="btn-var-D" class="var-btn px-3 py-1.5 rounded-lg font-bold text-sm text-slate-400 hover:text-white transition-all duration-200">Г</button>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div class="flex items-center gap-2 bg-slate-900/90 px-4 py-2 rounded-xl border border-blue-500/30">
+                <svg class="w-5 h-5 text-blue-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span id="timer-display" class="font-mono text-xl font-bold text-blue-400 tracking-wider">80:00</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto w-full px-4 py-8 flex-grow grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+        <!-- Questions & Content Column -->
+        <div class="lg:col-span-3 space-y-8">
+            <div id="quiz-header-card" class="glass-panel p-6 rounded-2xl border border-slate-700/80 shadow-xl">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-700/60 pb-4 mb-4">
+                    <div>
+                        <span id="current-variant-badge" class="inline-block bg-blue-500/20 text-blue-400 border border-blue-500/40 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-1">Хувилбар А</span>
+                        <h2 class="text-xl font-bold text-slate-100">Ахисан Түвшний Иж Бүрэн Тест ба Задгай Даалгавар</h2>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs text-slate-400 block">Нийт асуулт</span>
+                        <span class="text-lg font-bold text-slate-200">40 Даалгавар (100 Оноо)</span>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    Шалгалт нь гурван хэсгээс бүрдэнэ: <strong class="text-blue-400">Part 1:</strong> Уншиж ойлгох эх ба гүнзгийрүүлсэн 5 асуулт, <strong class="text-blue-400">Part 2:</strong> Граматик, үгсийн сан, хэлц болон инверсийн 15 сорил, <strong class="text-blue-400">Part 3:</strong> Тохируулах ба нөхөх 20 нарийн задарсан даалгавар.
+                </p>
+            </div>
+
+            <!-- Dynamic Exam Questions Container -->
+            <div id="exam-questions-container" class="space-y-6">
+                <!-- Exam content injected via JS -->
+            </div>
+
+            <!-- Submit Action Bar -->
+            <div class="glass-panel p-6 rounded-2xl border border-slate-700 text-center space-y-3">
+                <button onclick="submitExam()" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-lg rounded-xl shadow-lg shadow-blue-500/25 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0">
+                    Шалгалтыг Дуусгах & Дүн Тооцоолох
+                </button>
+                <p class="text-xs text-slate-400">Дуусгасны дараа таны скейл оноо (200-800) болон асуулт бүрийн дэлгэрэнгүй монгол тайлбар гарна.</p>
+            </div>
+        </div>
+
+        <aside class="lg:col-span-1 space-y-6">
+            <div class="glass-panel p-6 rounded-2xl border border-slate-700/80 sticky top-24 space-y-6">
+                <h3 class="text-base font-bold text-slate-200 border-b border-slate-700 pb-3 flex items-center justify-between">
+                    <span>Даалгаврын Зураглал</span>
+                    <span id="answered-count-badge" class="text-xs bg-slate-800 text-blue-400 border border-slate-700 px-2.5 py-1 rounded-full">0/40</span>
+                </h3>
+
+                <!-- Quick Navigation Grid -->
+                <div id="question-navigator" class="grid grid-cols-5 gap-2 max-h-80 overflow-y-auto custom-scrollbar pr-1">
+                    <!-- Nav items injected via JS -->
+                </div>
+
+                <div class="space-y-2 border-t border-slate-700/80 pt-4 text-xs text-slate-400">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-slate-800 border border-slate-600 inline-block"></span>
+                        <span>Хариулаагүй</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-blue-600 inline-block"></span>
+                        <span>Бөглөсөн</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                        <span>Зөв хариулт</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+                        <span>Буруу хариулт</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <div id="results-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden overflow-y-auto p-4 sm:p-6 flex items-center justify-center">
+        <div class="glass-panel max-w-3xl w-full bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative">
+            <button onclick="closeResultsModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <div class="text-center space-y-2">
+                <span class="inline-block bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Шалгалтын Нэгдсэн Дүн</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Таны Амжилт ба Скейл Оноо</h2>
+            </div>
+
+            <!-- Score Dashboard Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl text-center">
+                    <span class="text-xs text-slate-400 font-medium block mb-1">Анхны Оноо</span>
+                    <span id="modal-raw-score" class="text-2xl font-black text-blue-400">0 / 100</span>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl text-center">
+                    <span class="text-xs text-slate-400 font-medium block mb-1">Скейл Оноо (БҮТ)</span>
+                    <span id="modal-scaled-score" class="text-2xl font-black text-emerald-400">200</span>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl text-center">
+                    <span class="text-xs text-slate-400 font-medium block mb-1">Гүйцэтгэл</span>
+                    <span id="modal-percentage" class="text-2xl font-black text-purple-400">0%</span>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl text-center">
+                    <span class="text-xs text-slate-400 font-medium block mb-1">Үнэлгээ</span>
+                    <span id="modal-grade" class="text-2xl font-black text-amber-400">F</span>
+                </div>
+            </div>
+
+            <!-- Analytics & Detailed Advice -->
+            <div class="bg-slate-800/50 border border-slate-700/80 p-5 rounded-2xl space-y-2 text-sm">
+                <h4 class="font-bold text-slate-200 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Дүнгийн Шинжилгээ ба Зөвлөмж
+                </h4>
+                <p id="modal-feedback" class="text-slate-300 leading-relaxed"></p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                <button onclick="closeResultsModal()" class="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all">
+                    Асуулт Нэг Бүрчлэн Тайлалтай Харах
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const examDatabase = {
+        A: {
+            title: "Хувилбар А (Ахисан Түвшин)",
+            readingText: "The phenomenon of quantum computing represents a paradigm shift from classical digital computation. While classical computers process information utilizing binary digits (bits) restricted to states of 0 or 1, quantum devices leverage quantum bits (qubits). Qubits exploit the principles of superposition and quantum entanglement. Superposition enables a qubit to exist simultaneously in multiple probability states, allowing quantum algorithms to evaluate immense computational spaces concurrently. Furthermore, quantum entanglement correlates qubits such that the state of one instantaneously influences another, regardless of spatial distance. Consequently, problems previously deemed computationally intractable—such as high-dimensional molecular simulation, post-quantum cryptography, and global logistics optimization—can be resolved in fractions of the time required by supercomputers.",
+            part1: [
+                {
+                    id: 1,
+                    q: "1. What is the primary focus of the passage?",
+                    options: [
+                        "The superiority of binary bits over quantum bits.",
+                        "How quantum principles transform computational capability.",
+                        "The spatial limitations of global logistics supercomputers.",
+                        "The elimination of digital computers in molecular biology."
+                    ],
+                    correct: 1,
+                    exp: "Эхийн гол агуулга нь квант компьютерийн зарчмууд (superposition, entanglement) нь тооцоолох хүчин чадалд хэрхэн хувьсгал хийж буй тухай юм."
+                },
+                {
+                    id: 2,
+                    q: "2. The word 'intractable' in the passage is closest in meaning to:",
+                    options: ["Easily managed", "Incurably simple", "Exceedingly difficult to solve", "Uniquely entertaining"],
+                    correct: 2,
+                    exp: "'Intractable' гэдэг нь 'шийдэхэд туйлын бэрхшээлтэй, шийдэгдэшгүй' гэсэн утгатай."
+                },
+                {
+                    id: 3,
+                    q: "3. According to the text, superposition allows qubits to:",
+                    options: [
+                        "Exist only as a fixed 0 or 1.",
+                        "Evaluate multiple probability states concurrently.",
+                        "Travel across spatial distances physically.",
+                        "Replace post-quantum cryptography entirely."
+                    ],
+                    correct: 1,
+                    exp: "Эхэд 'Superposition enables a qubit to exist simultaneously in multiple probability states' гэж тодорхой дурдсан."
+                },
+                {
+                    id: 4,
+                    q: "4. What can be inferred about classical supercomputers?",
+                    options: [
+                        "They handle quantum entanglement better than quantum devices.",
+                        "They struggle with high-dimensional molecular simulations.",
+                        "They do not rely on binary bits.",
+                        "They were invented to solve post-quantum cryptography."
+                    ],
+                    correct: 1,
+                    exp: "Эхийн сүүлд дурдсанаар суперкомпьютер өмнө нь шийдэж чаддаггүй байсан (intractable) нарийн нийлмэл бодлогуудыг квант компьютер хурдан бодно гэснээс агуулгыг гаргаж болно."
+                },
+                {
+                    id: 5,
+                    q: "5. Which word best describes the author's tone toward quantum computing?",
+                    options: ["Skeptical", "Analytical and appreciative", "Dismissive", "Hostile"],
+                    correct: 1,
+                    exp: "Зохиолч квант тооцооллыг шинжлэх ухааны үндэслэлтэй, давуу талыг нь үнэлсэн (Analytical and appreciative) өнгө аясаар тайлбарласан."
+                }
+            ],
+            part2: [
+                {
+                    id: 6,
+                    q: "6. Seldom _____ such an intricate display of academic prowess in a high school contest.",
+                    options: ["we have witnessed", "have we witnessed", "did we witnessed", "we witnessed"],
+                    correct: 1,
+                    exp: "'Seldom' буюу үгүйсгэх агуулгатай дайвар үгээр өгүүлбэр эхэлж байгаа тул Inversion буюу туслах үйл үг (have) өгүүлэгчийн өмнө орно."
+                },
+                {
+                    id: 7,
+                    q: "7. Had the research team secured the state grant, they _____ the clinical trial last spring.",
+                    options: ["would complete", "would have completed", "completed", "will have completed"],
+                    correct: 1,
+                    exp: "3-р төрлийн нөхцөлт өгүүлбэр (Inverted Third Conditional: 'Had + S + V3 ..., S + would have + V3')."
+                },
+                {
+                    id: 8,
+                    q: "8. The manager insisted that every employee _____ present at the emergency briefing.",
+                    options: ["is", "was", "be", "are"],
+                    correct: 2,
+                    exp: "Subjunctive Mood (Захирах/Шаардах санаа): Insist, demand, recommend гэх үгсийн дараах өгүүлбэрт үйл үг анхны (bare infinitive - 'be') хэлбэрээрээ орно."
+                },
+                {
+                    id: 9,
+                    q: "9. Choose the correct idiom meaning 'to face a difficult situation with courage':",
+                    options: ["Bite the bullet", "Burn the midnight oil", "Bark up the wrong tree", "Spill the beans"],
+                    correct: 0,
+                    exp: "'Bite the bullet' хэлц үг нь хэцүү, тааламжгүй зүйлийг зориглон нүүр тулах гэсэн утгатай."
+                },
+                {
+                    id: 10,
+                    q: "10. The contract was invalidated because it was signed under _____.",
+                    options: ["duress", "diligence", "harmony", "solitude"],
+                    correct: 0,
+                    exp: "'Under duress' гэдэг нь 'рамхалт, аюул заналхийлэл эсвэл хүч чадал дор (албадлагаар)' гэсэн хууль эрх зүйн нэршил юм."
+                },
+                {
+                    id: 11,
+                    q: "11. Scarcely had the president finished his address _____ the audience burst into applause.",
+                    options: ["than", "when", "then", "after"],
+                    correct: 1,
+                    exp: "'Scarcely ... when' эсвэл 'Hardly ... when' бүтэц нь нэг үйл явдал болонгуут нөгөө нь болсныг заана."
+                },
+                {
+                    id: 12,
+                    q: "12. The committee decided to _____ the proposals until further economic assessment.",
+                    options: ["shelve", "expedite", "precipitate", "instigate"],
+                    correct: 0,
+                    exp: "'Shelve' үйл үг нь төсөл, саналыг 'түр хойшлуулах, царцаах' гэсэн утгатай."
+                },
+                {
+                    id: 13,
+                    q: "13. I would rather you _____ disclose our research methodology to competitors.",
+                    options: ["don't", "didn't", "won't", "not to"],
+                    correct: 1,
+                    exp: "'Would rather + subject + Past Simple' (didn't) бүтэц нь бусад хүний хийх үйлдэлд хориг эсвэл хүсэл тавихад хэрэглэгдэнэ."
+                },
+                {
+                    id: 14,
+                    q: "14. She turned _____ the lucrative job offer in order to pursue her doctoral studies.",
+                    options: ["down", "off", "out", "away"],
+                    correct: 0,
+                    exp: "'Turn down' фразуул үг нь санал, урилгаас 'татгалзах' гэсэн утгатай."
+                },
+                {
+                    id: 15,
+                    q: "15. The professor's explanation was so _____ that no student had any remaining doubts.",
+                    options: ["ambiguous", "lucid", "perplexing", "obscure"],
+                    correct: 1,
+                    exp: "'Lucid' гэдэг нь туйлын 'ойлгомжтой, тодорхой, цэгцтэй' гэсэн тэмдэг нэр."
+                },
+                {
+                    id: 16,
+                    q: "16. By next October, the team _____ on this space exploration project for five years.",
+                    options: ["will work", "will be working", "will have been working", "has worked"],
+                    correct: 2,
+                    exp: "Future Perfect Continuous ('will have been V-ing') нь ирээдүйн тодорхой цаг хүртэл үргэлжлэх хугацааг заана."
+                },
+                {
+                    id: 17,
+                    q: "17. Neither the senior partner nor the associates _____ willing to compromise.",
+                    options: ["was", "were", "is", "has been"],
+                    correct: 1,
+                    exp: "'Neither ... nor' бүтцэд үйл үг нь хамгийн ойр байгаа олон тооны нэр үг болох 'associates'-д зохицож 'were' болно."
+                },
+                {
+                    id: 18,
+                    q: "18. The company suffered heavy losses owing _____ poor market research.",
+                    options: ["for", "to", "with", "at"],
+                    correct: 1,
+                    exp: "'Owing to' хэллэг нь 'шалтгаанаар, үүднээс' гэсэн утгатай ба араасаа 'to' авна."
+                },
+                {
+                    id: 19,
+                    q: "19. The word 'meticulous' is opposite in meaning to:",
+                    options: ["Careful", "Diligent", "Careless", "Thorough"],
+                    correct: 2,
+                    exp: "'Meticulous' (нягт маш нямбай) үгийн эсрэг утга нь 'Careless' (хайш яаш, хайнга) юм."
+                },
+                {
+                    id: 20,
+                    q: "20. No sooner had we entered the hall _____ the keynote speech commenced.",
+                    options: ["when", "than", "then", "before"],
+                    correct: 1,
+                    exp: "'No sooner ... than' бүтэц нь цаг хугацааны дарааллыг туйлын хурдан болж өнгөрснийг харуулдаг."
+                }
+            ],
+            part3: [
+                // 3.1 Task Matching (Items 21-25)
+                { id: 21, type: "match", prompt: "21. Match word to definition: 'EPHEMERAL'", choices: ["A. Lasting for a very short time", "B. Extremely permanent and durable", "C. Deeply emotional and sad"], correct: 0, exp: "'Ephemeral' гэдэг нь маш богино настай, түр зуурын зүйлийг хэлнэ." },
+                { id: 22, type: "match", prompt: "22. Match word to definition: 'CANDID'", choices: ["A. Secretive and mysterious", "B. Truthful and straightforward", "C. Aggressive and hostile"], correct: 1, exp: "'Candid' гэдэг нь шулуун шударга, илэн далангүй гэсэн утгатай." },
+                { id: 23, type: "match", prompt: "23. Match word to definition: 'PRAGMATIC'", choices: ["A. Guided by ideal theories only", "B. Dealing with things sensibly and realistically", "C. Full of irrational fears"], correct: 1, exp: "'Pragmatic' гэдэг нь прагматик, бодит хөрсөн дээрх практик ач холбогдолтойг хэлнэ." },
+                { id: 24, type: "match", prompt: "24. Match word to definition: 'METICULOUS'", choices: ["A. Showing great attention to detail", "B. Unpredictable and chaotic", "C. Extremely slow in working"], correct: 0, exp: "'Meticulous' гэдэг нь жижиг деталийг ч анхаардаг нямбай чанар юм." },
+                { id: 25, type: "match", prompt: "25. Match word to definition: 'AMBIGUOUS'", choices: ["A. Open to more than one interpretation", "B. Completely clear and precise", "C. Loud and disturbing"], correct: 0, exp: "'Ambiguous' гэдэг нь олон янзаар ойлгогдож болох тодорхойгүй, будилшуу зүйлийг хэлнэ." },
+
+                // 3.2 Advanced Grammar & Word Formation Gap Fill (Items 26-30)
+                { id: 26, type: "text", prompt: "26. Fill gap with correct form of 'SATISFY': 'Her explanations provided complete _____ to the board.'", answer: "satisfaction", exp: "Тэмдэг нэр (complete)-ийн ард Нэр үг (satisfaction) орно." },
+                { id: 27, type: "text", prompt: "27. Fill gap with correct form of 'STRONG': 'Exercising daily will help _____ your immunity.'", answer: "strengthen", exp: "Үйл үгийн өмнөх 'will help' бүтцийн араас үйл үг (strengthen) шаардагдана." },
+                { id: 28, type: "text", prompt: "28. Fill gap with correct form of 'PREDICT': 'The economic weather in this region is completely _____.' (Negative adjective)", answer: "unpredictable", exp: "Өгүүлбэрийн утгаар 'урьдчилан тааварлах боломжгүй' (unpredictable) гэсэн сөрөг тэмдэг нэр шаардлагатай." },
+                { id: 29, type: "text", prompt: "29. Supply appropriate preposition: 'She is capable _____ solving multi-variable equations.'", answer: "of", exp: "'Capable of doing something' хамаатуулсан угтвар үгийн бүтэц." },
+                { id: 30, type: "text", prompt: "30. Supply appropriate preposition: 'He apologized _____ his mentor for arriving late.'", answer: "to", exp: "'Apologize to someone for something' бүтэц." },
+
+                // 3.3 Sentence Matching (Items 31-35)
+                { id: 31, type: "match", prompt: "31. Sentence match: 'If you keep practicing writing every day, ...'", choices: ["A. ...you will inevitably improve your academic English.", "B. ...you would have passed yesterday's test.", "C. ...you wouldn't be tired now."], correct: 0, exp: "1-р төрлийн нөхцөлт өгүүлбэр (If + Present Simple, Future Simple)." },
+                { id: 32, type: "match", prompt: "32. Sentence match: 'Had we known about the hazardous weather, ...'", choices: ["A. ...we will cancel the trip.", "B. ...we would have postponed our departure.", "C. ...we do not go outside."], correct: 1, exp: "3-р төрлийн инверсс бүтэц (Had + S + V3, would have + V3)." },
+                { id: 33, type: "match", prompt: "33. Sentence match: 'Despite having limited resources, ...'", choices: ["A. ...they managed to complete the project on time.", "B. ...although they were tired.", "C. ...because they lacked support."], correct: 0, exp: "'Despite' нь дагуулж буй хэллэгийнхээ эсрэг тэсрэг утга бүхий үр дүнг заана." },
+                { id: 34, type: "match", prompt: "34. Sentence match: 'Not only did she win the national award, ...'", choices: ["A. ...but she also received a full university scholarship.", "B. ...and she was happy.", "C. ...or she went abroad."], correct: 0, exp: "'Not only ... but also' хослох холбоос ба инверсс өгүүлбэр." },
+                { id: 35, type: "match", prompt: "35. Sentence match: 'So severe was the winter storm ...'", choices: ["A. ...that all regional flights were grounded.", "B. ...because of the rain.", "C. ...when we arrived home."], correct: 0, exp: "'So + Adjective + Auxiliary + Subject ... that' инверсийн бүтэц." },
+
+                // 3.4 Logical Text Completion Items (Items 36-40)
+                { id: 36, type: "text", prompt: "36. Supply the missing connector: 'He worked extremely hard; _____, he failed to meet the deadline.' (However/Therefore/Furthermore)", answer: "however", exp: "Хоёр өгүүлбэрийн утгын сөргөлдөөнийг зааж байгаа тул 'however' хэрэглэгдэнэ." },
+                { id: 37, type: "text", prompt: "37. Supply the correct modal: 'You _____ not bring food into the university library. It is strictly prohibited.'", answer: "must", exp: "Хатуу хориглосон дүрэм журмыг 'must not' заана." },
+                { id: 38, type: "text", prompt: "38. Write the past participle form of 'UNDERGO':", answer: "undergone", exp: "Undergo (Өнгөрсөн цаг: underwent, V3: undergone)." },
+                { id: 39, type: "text", prompt: "39. Fill gap: 'The candidate was rejected due to his complete lack _____ experience.'", answer: "of", exp: "'Lack of something' бүтэц." },
+                { id: 40, type: "text", prompt: "40. Complete the phrase: 'In _____ of the rain, the outdoors festival proceeded.' (spite/despite)", answer: "spite", exp: "'In spite of' хэллэг нь 'хэдийгээр тийм боловч' гэсэн утгатай." }
+            ]
+        },
+        B: {
+            title: "Хувилбар Б (Ахисан Түвшин)",
+            readingText: "Genomic editing via CRISPR-Cas9 technology has redefined modern biotechnology. Derived from bacterial immune mechanisms, CRISPR enables molecular biologists to make targeted alterations to DNA sequences with unprecedented precision. By employing a guide RNA to direct the Cas9 nuclease enzyme to specific genomic coordinates, scientists can cleave mutated genes and insert functional sequences. While the therapeutic ramifications for hereditary conditions such as sickle cell anemia are profound, bioethicists caution against germline editing. Germline modifications alter the genetic material of embryos, meaning these artificial traits are inheritable by future generations, creating complex ethical dilemmas regarding consent, equity, and human enhancement.",
+            part1: [
+                {
+                    id: 1,
+                    q: "1. What is the principal focus of the text?",
+                    options: [
+                        "The discovery of bacterial immune systems.",
+                        "CRISPR-Cas9 gene editing and its ethical implications.",
+                        "The total elimination of sickle cell anemia worldwide.",
+                        "How embryos develop without guide RNA."
+                    ],
+                    correct: 1,
+                    exp: "Эх нь CRISPR ген засах технологи ба түүний ёс зүйн асуудлуудын тухай өгүүлнэ."
+                },
+                {
+                    id: 2,
+                    q: "2. The word 'cleave' in the passage is closest in meaning to:",
+                    options: ["Combine", "Cut or split", "Repair", "Magnify"],
+                    correct: 1,
+                    exp: "'Cleave' гэдэг нь ДНХ-ийн дарааллыг 'таслах, зүсэх, хуваах' гэсэн утгатай."
+                },
+                {
+                    id: 3,
+                    q: "3. What makes germline editing ethically controversial according to the text?",
+                    options: [
+                        "It is too expensive for medical clinics.",
+                        "Modifications are passed down to future generations.",
+                        "It relies solely on classical binary computing.",
+                        "It cannot target specific DNA sequences."
+                    ],
+                    correct: 1,
+                    exp: "Үр хөврөлийн генд өөрчлөлт оруулбал тэр нь ирээдүй үед нь удамшин дамждаг тул ёс зүйн асуудал дагуулдаг."
+                },
+                {
+                    id: 4,
+                    q: "4. The enzyme Cas9 acts like a pair of molecular scissors directed by:",
+                    options: ["Sickle cells", "Bacterial immunity", "Guide RNA", "Bioethicists"],
+                    correct: 2,
+                    exp: "Эхэд 'employing a guide RNA to direct the Cas9 nuclease enzyme' гэж заасан."
+                },
+                {
+                    id: 5,
+                    q: "5. The author's perspective on CRISPR technology can be summarized as:",
+                    options: ["Purely dismissive", "Recognizing its high potential alongside ethical concerns", "Unconditionally supportive of human enhancement", "Indifferent"],
+                    correct: 1,
+                    exp: "Зохиолч анагаах ухааны өндөр ач холбогдлыг болон ёс зүйн эрсдэлийг зэрэг харуулсан."
+                }
+            ],
+            part2: [
+                {
+                    id: 6,
+                    q: "6. Little _____ about the intricate complexities of deep-sea ecosystems until recently.",
+                    options: ["did scientists know", "scientists knew", "have scientists known", "scientists had known"],
+                    correct: 0,
+                    exp: "'Little' үгүйсгэх үгээр өгүүлбэр эхэлж байгаа тул Inversion (did scientists know) авна."
+                },
+                {
+                    id: 7,
+                    q: "7. It is imperative that the government _____ swift action against deforestation.",
+                    options: ["takes", "take", "took", "has taken"],
+                    correct: 1,
+                    exp: "Subjunctive Mood: 'It is imperative that + subject + bare infinitive (take)'."
+                },
+                {
+                    id: 8,
+                    q: "8. Had she not intervened, the dispute _____ into a costly legal lawsuit.",
+                    options: ["escalated", "would escalate", "would have escalated", "will escalate"],
+                    correct: 2,
+                    exp: "Inverted 3rd Conditional өгүүлбэр."
+                },
+                {
+                    id: 9,
+                    q: "9. Identify the antonym for 'benevolent':",
+                    options: ["Generous", "Malevolent", "Kind", "Altruistic"],
+                    correct: 1,
+                    exp: "'Benevolent' (энэрэнгүй, ачтай) үгийн эсрэг нь 'Malevolent' (хорон санаатай, хорлооч) юм."
+                },
+                {
+                    id: 10,
+                    q: "10. The sudden financial crisis brought _____ the unexpected collapse of the bank.",
+                    options: ["about", "up", "out", "off"],
+                    correct: 0,
+                    exp: "'Bring about' фразуул үг нь 'учруулах, үүсгэх, дагуулах' гэсэн утгатай."
+                },
+                {
+                    id: 11,
+                    q: "11. Only after receiving full clearance _____ allowed to enter the high-security laboratory.",
+                    options: ["were the researchers", "the researchers were", "did the researchers", "had the researchers"],
+                    correct: 0,
+                    exp: "'Only after...' инверсийн бүтэц."
+                },
+                {
+                    id: 12,
+                    q: "12. The CEO decided to _____ responsibility for the accounting scandal.",
+                    options: ["disclaim", "abdicate", "assimilate", "refurbish"],
+                    correct: 1,
+                    exp: "'Abdicate responsibility' гэдэг нь хариуцлагаасаа татгалзах гэсэн үг."
+                },
+                {
+                    id: 13,
+                    q: "13. I would rather we _____ the conference until next month.",
+                    options: ["postpone", "postponed", "will postpone", "have postponed"],
+                    correct: 1,
+                    exp: "'Would rather + Subject + Past Simple' бүтэц."
+                },
+                {
+                    id: 14,
+                    q: "14. The new regulation applies _____ all foreign investors without exception.",
+                    options: ["with", "for", "to", "on"],
+                    correct: 2,
+                    exp: "'Apply to someone/something' угтвар үгийн бүтэц."
+                },
+                {
+                    id: 15,
+                    q: "15. Choose the idiom meaning 'to reveal a secret prematurely':",
+                    options: ["Let the cat out of the bag", "Hit the nail on the head", "Burn bridges", "Cost an arm and a leg"],
+                    correct: 0,
+                    exp: "'Let the cat out of the bag' нь нууцыг хугацаанаас нь өмнө задлах гэсэн хэлц үг."
+                },
+                {
+                    id: 16,
+                    q: "16. By the time the rescue team arrives, the hikers _____ in the cave for 48 hours.",
+                    options: ["will be", "will have been", "are", "have been"],
+                    correct: 1,
+                    exp: "Future Perfect цаг заана."
+                },
+                {
+                    id: 17,
+                    q: "17. Neither the professor nor his assistants _____ able to replicate the experiment.",
+                    options: ["was", "were", "is", "has been"],
+                    correct: 1,
+                    exp: "'Neither... nor' олон тооны 'assistants'-д тохирно."
+                },
+                {
+                    id: 18,
+                    q: "18. She was so engrossed _____ her book that she missed her bus stop.",
+                    options: ["with", "at", "in", "on"],
+                    correct: 2,
+                    exp: "'Engrossed in something' (ажилдаа/номдоо улайран орох)."
+                },
+                {
+                    id: 19,
+                    q: "19. The witness gave an _____ account of the incident, leaving out no details.",
+                    options: ["exhaustive", "exhausted", "exhausting", "exhaust"],
+                    correct: 0,
+                    exp: "'Exhaustive' нь 'иж бүрэн, нарийвчилсан' гэсэн утгатай тэмдэг нэр."
+                },
+                {
+                    id: 20,
+                    q: "20. Not until the middle of the night _____ that my wallet was missing.",
+                    options: ["did I realize", "I realized", "have I realized", "I had realized"],
+                    correct: 0,
+                    exp: "'Not until...' инверсийн бүтэц."
+                }
+            ],
+            part3: [
+                { id: 21, type: "match", prompt: "21. Match: 'UBIQUITOUS'", choices: ["A. Found everywhere", "B. Extremely rare", "C. Highly dangerous"], correct: 0, exp: "'Ubiquitous' гэдэг нь хаа сайгүй байдаг, түгээмэл гэсэн үг." },
+                { id: 22, type: "match", prompt: "22. Match: 'SURREPTITIOUS'", choices: ["A. Done secretly", "B. Loud and clear", "C. Openly celebrated"], correct: 0, exp: "'Surreptitious' гэдэг нь нууц далд аргаар хийсэн гэсэн утгатай." },
+                { id: 23, type: "match", prompt: "23. Match: 'BENIGN'", choices: ["A. Harmful and fatal", "B. Gentle and non-threatening", "C. Extremely cold"], correct: 1, exp: "'Benign' гэдэг нь хор нөлөөгүй, зөөлөн, аюулгүй." },
+                { id: 24, type: "match", prompt: "24. Match: 'REDUNDANT'", choices: ["A. Essential and vital", "B. No longer needed or superflous", "C. Highly creative"], correct: 1, exp: "'Redundant' гэдэг нь илүүдэл, илүүдсэн, хэрэгцээгүй болсон." },
+                { id: 25, type: "match", prompt: "25. Match: 'LOQUACIOUS'", choices: ["A. Tending to talk a great deal", "B. Shy and silent", "C. Highly aggressive"], correct: 0, exp: "'Loquacious' гэдэг нь чалчаа, их яриа гэсэн тэмдэг нэр." },
+
+                { id: 26, type: "text", prompt: "26. Form noun from 'HONEST': 'In business, _____ is highly valued.'", answer: "honesty", exp: "Нэр үгийн хэлбэр 'honesty' орно." },
+                { id: 27, type: "text", prompt: "27. Form verb from 'WIDE': 'They plan to _____ the main highway.'", answer: "widen", exp: "Үйл үгийн хэлбэр 'widen' (өргөтгөх)." },
+                { id: 28, type: "text", prompt: "28. Form negative adjective from 'LITERATE': 'He was functionally _____.'", answer: "illiterate", exp: "Бичиг үсэг тайлагдаагүй гэсэн 'illiterate' үг орно." },
+                { id: 29, type: "text", prompt: "29. Preposition fill: 'They succeeded _____ obtaining the patent.'", answer: "in", exp: "'Succeed in doing something' бүтэц." },
+                { id: 30, type: "text", prompt: "30. Preposition fill: 'She is addicted _____ playing mobile games.'", answer: "to", exp: "'Addicted to something' бүтэц." },
+
+                { id: 31, type: "match", prompt: "31. Sentence match: 'Had he checked the engine oil, ...'", choices: ["A. ...the car would not have broken down.", "B. ...the car will work fine.", "C. ...he doesn't drive fast."], correct: 0, exp: "3-р төрлийн нөхцөлт өгүүлбэрийн үр дүн." },
+                { id: 32, type: "match", prompt: "32. Sentence match: 'Unless you pay the registration fee, ...'", choices: ["A. ...you cannot enter the conference.", "B. ...you would join us.", "C. ...you didn't get a seat."], correct: 0, exp: "'Unless' (хэрэв ... үгүй бол) нөхцөлт бүтэц." },
+                { id: 33, type: "match", prompt: "33. Sentence match: 'On no account should you ...'", choices: ["A. ...leave young children unattended near water.", "B. ...and you can go home.", "C. ...because it was late."], correct: 0, exp: "'On no account' инверсс хориглосон бүтэц." },
+                { id: 34, type: "match", prompt: "34. Sentence match: 'In spite of her severe injuries, ...'", choices: ["A. ...she finished the marathon race.", "B. ...although she was hurt.", "C. ...so she went to hospital."], correct: 0, exp: "'In spite of' эсрэг утгат бүтцийн залгамж." },
+                { id: 35, type: "match", prompt: "35. Sentence match: 'The reason why he resigned ...'", choices: ["A. ...was never made public.", "B. ...because he was sick.", "C. ...since he found a job."], correct: 0, exp: "'The reason why ... was ...' өгүүлбэрийн бүтэц." },
+
+                { id: 36, type: "text", prompt: "36. Connector fill: 'The team worked hard; _____, they won first prize.' (Consequently/However)", answer: "consequently", exp: "Шалтгаан үр дагаврыг зааж байгаа тул 'consequently' хэрэглэнэ." },
+                { id: 37, type: "text", prompt: "37. Modal fill: 'You _____ wear protective goggles in the chemistry lab. It's mandatory.'", answer: "must", exp: "Заавал биелүүлэх үүргийг 'must' заана." },
+                { id: 38, type: "text", prompt: "38. Past participle of 'FORBID':", answer: "forbidden", exp: "Forbid -> forbade -> forbidden." },
+                { id: 39, type: "text", prompt: "39. Fill gap: 'He was completely immune _____ the virus.'", answer: "to", exp: "'Immune to something' бүтэц." },
+                { id: 40, type: "text", prompt: "40. Complete phrase: '_____ account of the storm, all flights were delayed.' (On/In)", answer: "on", exp: "'On account of' (шалтгааны улмаас)." }
+            ]
+        },
+        C: {
+            title: "Хувилбар В (Ахисан Түвшин)",
+            readingText: "Macroeconomic volatility and inflationary pressures present continuous challenges to modern central banking systems. Historically, central banks utilized interest rate manipulation to regulate liquidity and curb price inflation. However, following the 2008 financial crisis and the post-pandemic economic shifts, non-traditional monetary tools such as Quantitative Easing (QE) were widely deployed. QE involves central banks purchasing long-term government bonds to inject capital directly into commercial banking reserves, fostering lending and lowering long-term interest rates. Critics contend that long-term reliance on QE destabilizes currency valuation and amplifies wealth inequality by inflating asset prices rather than driving real wage growth.",
+            part1: [
+                { id: 1, q: "1. What is the central topic of the passage?", options: ["The history of gold standards.", "Central bank monetary policies and Quantitative Easing.", "How inflation benefits real wage growth.", "The failure of commercial banks."], correct: 1, exp: "Мөнгөний бодлого болон Quantitative Easing (QE)-ийн тухай эхэд өгүүлж байна." },
+                { id: 2, q: "2. The word 'curb' in paragraph 1 is closest in meaning to:", options: ["Restrain/Control", "Accelerate", "Ignore", "Promote"], correct: 0, exp: "'Curb' гэдэг нь 'хязгаарлах, барьж дийлэх, хянах' гэсэн утгатай." },
+                { id: 3, q: "3. What is a key critique of Quantitative Easing mentioned in the text?", options: ["It immediately reduces asset prices.", "It can destabilize currency and amplify wealth inequality.", "It forbids commercial banks from lending.", "It raises interest rates overnight."], correct: 1, exp: "QE-ийн шүүмжлэл нь валютыг тогтворгүйжүүлж, баян ядуугийн ялгааг гүнзгийрүүлдэг." },
+                { id: 4, q: "4. Quantitative Easing primarily involves:", options: ["Printing paper bills directly for citizens.", "Purchasing long-term government bonds.", "Raising short-term tax rates.", "Abolishing central banking."], correct: 1, exp: "Эхэд 'purchasing long-term government bonds' гэж тодорхой дурдсан." },
+                { id: 5, q: "5. The tone of the passage regarding QE can be described as:", options: ["Overwhelmingly enthusiastic", "Neutral and critical", "Biased and emotional", "Sarcastic"], correct: 1, exp: "Төвийг сахисан болон шүүмжлэлт талыг тусгасан." }
+            ],
+            part2: [
+                { id: 6, q: "6. Under no circumstances _____ leave confidential documents unattended.", options: ["you should", "should you", "you must", "did you"], correct: 1, exp: "'Under no circumstances' инверссийн бүтэц." },
+                { id: 7, q: "7. The board recommended that the CEO _____ the restructuring plan immediately.", options: ["implements", "implement", "implemented", "is implementing"], correct: 1, exp: "Subjunctive mood: recommend that + subject + bare verb (implement)." },
+                { id: 8, q: "8. Had the flight not been delayed, we _____ our connection in Frankfurt.", options: ["would catch", "would have caught", "caught", "will catch"], correct: 1, exp: "3-р төрлийн нөхцөлт инверсс." },
+                { id: 9, q: "9. Select the synonym for 'ephemeral':", options: ["Transient", "Permanent", "Eternal", "Constant"], correct: 0, exp: "'Ephemeral' (түр зуурын) = 'Transient'." },
+                { id: 10, q: "10. The police are looking _____ the circumstances surrounding the robbery.", options: ["into", "over", "after", "through"], correct: 0, exp: "'Look into' = хэрэг явдлыг мөрдөх, шалгах." },
+                { id: 11, q: "11. Scarcely had I laid down _____ the phone rang.", options: ["than", "when", "then", "before"], correct: 1, exp: "'Scarcely ... when' бүтэц." },
+                { id: 12, q: "12. The judge showed zero tolerance for _____ testimony in court.", options: ["perjured", "authentic", "accurate", "candid"], correct: 0, exp: "'Perjured' = худлаа тангарагласан мэдүүлэг." },
+                { id: 13, q: "13. I would rather you _____ speak so loudly in the reading room.", options: ["don't", "didn't", "not", "won't"], correct: 1, exp: "'Would rather + Subject + Past Simple'." },
+                { id: 14, q: "14. She stands a good chance _____ winning the gold medal.", options: ["of", "for", "in", "to"], correct: 0, exp: "'Stand a chance of doing something'." },
+                { id: 15, q: "15. Choose the idiom: 'To cut corners' means:", options: ["To do something carelessly to save time/money", "To draw geometric shapes", "To drive dangerously around turns", "To spend money extravagantly"], correct: 0, exp: "'Cut corners' = цаг мөнгө хэмнэх гэж чанаргүй хийх." },
+                { id: 16, q: "16. By next December, they _____ building the new highway bridge.", options: ["will finish", "will have finished", "finish", "are finishing"], correct: 1, exp: "Future Perfect цаг." },
+                { id: 17, q: "17. Neither the captain nor the crew members _____ aware of the reef.", options: ["was", "were", "is", "has been"], correct: 1, exp: "Олон тооны 'crew members'-д 'were' тохирно." },
+                { id: 18, q: "18. He was prevented _____ leaving the country during the investigation.", options: ["from", "to", "at", "with"], correct: 0, exp: "'Prevent someone from doing something'." },
+                { id: 19, q: "19. The antonym of 'pragmatic' is:", options: ["Practical", "Idealistic", "Realistic", "Sensible"], correct: 1, exp: "'Pragmatic' (бодит)-ийн эсрэг нь 'Idealistic' (хийсвэр)." },
+                { id: 20, q: "20. Barely had the ship left port _____ a ferocious storm struck.", options: ["when", "than", "then", "after"], correct: 0, exp: "'Barely ... when' бүтэц." }
+            ],
+            part3: [
+                { id: 21, type: "match", prompt: "21. Match: 'ESOTERIC'", choices: ["A. Intended for or understood by only a small group", "B. Publicly known by everyone", "C. Highly emotional"], correct: 0, exp: "'Esoteric' = цөөн хүнд ойлгомжтой, нарийн далд." },
+                { id: 22, type: "match", prompt: "22. Match: 'TENACIOUS'", choices: ["A. Tending to keep a firm hold; persistent", "B. Weak and easily broken", "C. Careless"], correct: 0, exp: "'Tenacious' = шургуу, бууж өгдөггүй." },
+                { id: 23, type: "match", prompt: "23. Match: 'PERVASIVE'", choices: ["A. Spreading widely throughout an area", "B. Isolated to one room", "C. Harmless"], correct: 0, exp: "'Pervasive' = бүхэлдээ түгсэн, нэвчсэн." },
+                { id: 24, type: "match", prompt: "24. Match: 'ACQUIESCE'", choices: ["A. Accept something reluctantly but without protest", "B. Fight aggressively", "C. Destroy"], correct: 0, exp: "'Acquiesce' = дуугүй зөвшөөрөх." },
+                { id: 25, type: "match", prompt: "25. Match: 'FASTIDIOUS'", choices: ["A. Very attentive to and concerned about accuracy", "B. Extremely fast", "C. Lazy"], correct: 0, exp: "'Fastidious' = туйлын шаардлага өндөртэй, нямбай." },
+
+                { id: 26, type: "text", prompt: "26. Noun form of 'PURE': 'We tested the water for _____.'", answer: "purity", exp: "Нэр үг 'purity' (цэвэр байдал)." },
+                { id: 27, type: "text", prompt: "27. Verb form of 'DEEP': 'Divers plan to _____ the channel.'", answer: "deepen", exp: "Үйл үг 'deepen' (гүнзгийрүүлэх)." },
+                { id: 28, type: "text", prompt: "28. Negative adj from 'EFFICIENT': 'Their old heating system is highly _____.'", answer: "inefficient", exp: "'Inefficient' (ашигт ажиллагаагүй)." },
+                { id: 29, type: "text", prompt: "29. Preposition: 'He was convicted _____ tax fraud.'", answer: "of", exp: "'Convict someone of a crime'." },
+                { id: 30, type: "text", prompt: "30. Preposition: 'She insists _____ doing everything herself.'", answer: "on", exp: "'Insist on doing something'." },
+
+                { id: 31, type: "match", prompt: "31. Sentence match: 'Had you warned me in advance, ...'", choices: ["A. ...I would not have made this mistake.", "B. ...I don't help you.", "C. ...you will leave early."], correct: 0, exp: "3-р төрлийн нөхцөлт инверсс." },
+                { id: 32, type: "match", prompt: "32. Sentence match: 'Provided that you wear safety boots, ...'", choices: ["A. ...you are allowed onto the construction site.", "B. ...you would fall.", "C. ...you didn't hear us."], correct: 0, exp: "'Provided that' (хэрэв) нөхцөл." },
+                { id: 33, type: "match", prompt: "33. Sentence match: 'Little did the audience suspect ...'", choices: ["A. ...that the performance was recorded live.", "B. ...because it was good.", "C. ...and they left."], correct: 0, exp: "'Little did S suspect' инверссийн бүтэц." },
+                { id: 34, type: "match", prompt: "34. Sentence match: 'Regardless of his lack of formal training, ...'", choices: ["A. ...he created incredible computer software.", "B. ...although he was smart.", "C. ...so he quit."], correct: 0, exp: "'Regardless of' (үл харгалзан)." },
+                { id: 35, type: "match", prompt: "35. Sentence match: 'No sooner had she stepped outside ...'", choices: ["A. ...than heavy rain began to pour.", "B. ...when she saw him.", "C. ...and she smiled."], correct: 0, exp: "'No sooner ... than' бүтэц." },
+
+                { id: 36, type: "text", prompt: "36. Connector: 'He studied hard; _____, he passed with distinction.' (Therefore/However)", answer: "therefore", exp: "Үр дүнг зааж байгаа тул 'therefore' орно." },
+                { id: 37, type: "text", prompt: "37. Modal fill: 'Candidates _____ not leave the hall without permission.'", answer: "must", exp: "Хориглосон дүрэм 'must not'." },
+                { id: 38, type: "text", prompt: "38. Past Participle of 'FORSET':", answer: "forgotten", exp: "Forget -> forgot -> forgotten." },
+                { id: 39, type: "text", prompt: "39. Fill gap: 'She was unaware _____ the sudden policy change.'", answer: "of", exp: "'Unaware of something'." },
+                { id: 40, type: "text", prompt: "40. Complete: 'By _____ of hard work, he succeeded.' (dint/means)", answer: "dint", exp: "'By dint of' = хүч хөдөлмөрөөр." }
+            ]
+        },
+        D: {
+            title: "Хувилбар Г (Ахисан Түвшин)",
+            readingText: "Anthropogenic climate change presents unprecedented risks to biodiversity worldwide. Rising mean temperatures alter phenological cycles—the timing of natural events such as bird migration, plant flowering, and insect emergence. When species that rely on one another for survival respond asynchronously to warming temperatures, ecological mismatches occur. For instance, if migratory songbirds arrive at breeding grounds after peak caterpillar abundance, fledgling survival rates drop precipitously. Conservation biologists advocate for habitat corridors to facilitate species range shifts, alongside stringent global policies aimed at curbing greenhouse gas emissions.",
+            part1: [
+                { id: 1, q: "1. What is the main thesis of the text?", options: ["Bird migration routes are fully static.", "Climate change causes ecological mismatches that threaten species.", "Caterpillar populations are exterminating migratory birds.", "Habitat corridors are ineffective."], correct: 1, exp: "Уур амьсгалын өөрчлөлт нь байгалийн экосистемийн цаг хугацааны синхрончлолыг алдагдуулдаг." },
+                { id: 2, q: "2. The word 'precipitously' in the text means:", options: ["Gradually and slowly", "Steeply and rapidly", "Slightly", "Predictably"], correct: 1, exp: "'Precipitously' гэдэг нь 'огцом, огцом хурдтайгаар' гэсэн утгатай." },
+                { id: 3, q: "3. What is an example of an 'ecological mismatch' mentioned in the text?", options: ["Birds arriving after peak food source availability.", "Plants flowering earlier due to freezing rain.", "Insects becoming extinct in corridors.", "Temperatures dropping in summer."], correct: 0, exp: "Шувууд ирэхэд тэдний идэш болох сүүлийн үеийн агалдай хэдийнэ өнгөрсөн байхыг тодорхойлсон." },
+                { id: 4, q: "4. What solution do conservation biologists advocate for according to the text?", options: ["Artificial feeding stations worldwide.", "Habitat corridors and greenhouse gas emission cuts.", "Captive breeding of all migratory birds.", "Elimination of caterpillar populations."], correct: 1, exp: "Эхийн төгсгөлд 'habitat corridors... alongside stringent global policies' гэж дурдсан." },
+                { id: 5, q: "5. The word 'anthropogenic' means:", options: ["Caused by natural solar cycles", "Originating from human activity", "Extraterrestrial", "Underground"], correct: 1, exp: "'Anthropogenic' = Хүний үйл ажиллагаанаас үүдэлтэй." }
+            ],
+            part2: [
+                { id: 6, q: "6. Not only _____ complete the project early, but she also exceeded expectations.", options: ["did she", "she did", "has she", "she has"], correct: 0, exp: "'Not only' өгүүлбэр эхэнд ирэхэд Inversion (did she) авна." },
+                { id: 7, q: "7. It is essential that every student _____ their assignment before midnight.", options: ["submits", "submit", "submitted", "has submitted"], correct: 1, exp: "Subjunctive Mood: essential that + S + bare verb (submit)." },
+                { id: 8, q: "8. Had we taken the alternative route, we _____ stuck in traffic for hours.", options: ["would not be", "would not have been", "are not", "will not be"], correct: 1, exp: "3-р төрлийн нөхцөлт инверсс." },
+                { id: 9, q: "9. Select the synonym for 'meticulous':", options: ["Scrupulous", "Careless", "Negligent", "Hasty"], correct: 0, exp: "'Meticulous' (нямбай, чамбай) = 'Scrupulous'." },
+                { id: 10, q: "10. The company was forced to lay _____ fifty employees due to losses.", options: ["off", "down", "out", "away"], correct: 0, exp: "'Lay off' = цомхотгох, ажлаас халах." },
+                { id: 11, q: "11. Only when the test results arrived _____ the severity of the illness.", options: ["did the doctor comprehend", "the doctor comprehended", "has the doctor comprehended", "the doctor did comprehend"], correct: 0, exp: "'Only when...' инверссийн бүтэц." },
+                { id: 12, q: "12. The lawyer raised a valid _____ to the prosecutor's leading question.", options: ["objection", "approval", "compliance", "endorsement"], correct: 0, exp: "'Objection' = эсэргүүцэл, татгалзал." },
+                { id: 13, q: "13. I would rather you _____ use your phone during the classical concert.", options: ["don't", "didn't", "won't", "not"], correct: 1, exp: "'Would rather + Subject + Past Simple'." },
+                { id: 14, q: "14. She congratulated him _____ winning the international chess tournament.", options: ["for", "on", "with", "at"], correct: 1, exp: "'Congratulate someone on something'." },
+                { id: 15, q: "15. Choose the idiom: 'Burn the midnight oil' means:", options: ["To waste electricity", "To work or study late into the night", "To start a fire by accident", "To ruin a project"], correct: 1, exp: "'Burn the midnight oil' = шөнө дөл болтол хичээллэх, ажиллах." },
+                { id: 16, q: "16. By 2030, scientists _____ a fully functional quantum network.", options: ["will develop", "will have developed", "develop", "have developed"], correct: 1, exp: "Future Perfect цаг." },
+                { id: 17, q: "17. Neither the manager nor the director _____ present at yesterday's seminar.", options: ["was", "were", "are", "have been"], correct: 0, exp: "Ганц тооны 'director'-т 'was' тохирно." },
+                { id: 18, q: "18. He was blamed _____ causing the traffic collision.", options: ["for", "of", "with", "at"], correct: 0, exp: "'Blame someone for something'." },
+                { id: 19, q: "19. The antonym of 'candid' is:", options: ["Honest", "Direct", "Deceitful", "Frank"], correct: 2, exp: "'Candid' (шулуун шударга)-ийн эсрэг нь 'Deceitful' (зальхай)." },
+                { id: 20, q: "20. Scarcely had the match started _____ the lights failed.", options: ["when", "than", "then", "after"], correct: 0, exp: "'Scarcely ... when' бүтэц." }
+            ],
+            part3: [
+                { id: 21, type: "match", prompt: "21. Match: 'GREGARIOUS'", choices: ["A. Fond of company; sociable", "B. Extremely shy", "C. Aggressive"], correct: 0, exp: "'Gregarious' = нийтэч, олонтойгоо явах дуртай." },
+                { id: 22, type: "match", prompt: "22. Match: 'INTRINSIC'", choices: ["A. Belonging naturally; essential", "B. External and artificial", "C. Useless"], correct: 0, exp: "'Intrinsic' = төрөлхийн, салшгүй амин чанар." },
+                { id: 23, type: "match", prompt: "23. Match: 'DILIGENT'", choices: ["A. Showing care and effort in work", "B. Extremely lazy", "C. Dishonest"], correct: 0, exp: "'Diligent' = хичээнгүй, чамбай." },
+                { id: 24, type: "match", prompt: "24. Match: 'INADVERTENT'", choices: ["A. Unintentional; accidental", "B. Fully deliberate and planned", "C. Highly visible"], correct: 0, exp: "'Inadvertent' = санамсаргүй, бодолгүйгээр хийсэн." },
+                { id: 25, type: "match", prompt: "25. Match: 'COMPLACENT'", choices: ["A. Smug and uncritically satisfied with oneself", "B. Deeply worried", "C. Highly ambitious"], correct: 0, exp: "'Complacent' = өөртөө хэт сэтгэл ханаж тайвширсан." },
+
+                { id: 26, type: "text", prompt: "26. Noun form of 'IMPORTANT': 'They stressed the _____ of education.'", answer: "importance", exp: "Нэр үг 'importance'." },
+                { id: 27, type: "text", prompt: "27. Verb form of 'SHORT': 'Please _____ your speech to ten minutes.'", answer: "shorten", exp: "Үйл үг 'shorten' (богиносгох)." },
+                { id: 28, type: "text", prompt: "28. Negative adj from 'POSSIBLE': 'Traveling faster than light is currently _____.'", answer: "impossible", exp: "'Impossible' (боломжгүй)." },
+                { id: 29, type: "text", prompt: "29. Preposition fill: 'She excels _____ mathematical analysis.'", answer: "in", exp: "'Excel in something' бүтэц." },
+                { id: 30, type: "text", prompt: "30. Preposition fill: 'He was accused _____ tax evasion.'", answer: "of", exp: "'Accuse someone of something'." },
+
+                { id: 31, type: "match", prompt: "31. Sentence match: 'Had the alarms sounded immediately, ...'", choices: ["A. ...everyone would have evacuated safely.", "B. ...no one leaves the hall.", "C. ...you will hear it."], correct: 0, exp: "3-р төрлийн нөхцөлт инверсс." },
+                { id: 32, type: "match", prompt: "32. Sentence match: 'In the event of an emergency, ...'", choices: ["A. ...press the red button instantly.", "B. ...you would have slept.", "C. ...because it was dark."], correct: 0, exp: "'In the event of' (аюултай тохиолдолд)." },
+                { id: 33, type: "match", prompt: "33. Sentence match: 'Seldom have we experienced ...'", choices: ["A. ...such extreme heat in September.", "B. ...and we went outside.", "C. ...because of rain."], correct: 0, exp: "'Seldom have we...' инверсс." },
+                { id: 34, type: "match", prompt: "34. Sentence match: 'Despite his exhaustion, ...'", choices: ["A. ...he continued climbing up the mountain.", "B. ...although he was tired.", "C. ...so he slept."], correct: 0, exp: "'Despite' эсрэг утгат хослол." },
+                { id: 35, type: "match", prompt: "35. Sentence match: 'Hardly had I stepped out ...'", choices: ["A. ...when the taxi arrived.", "B. ...than I saw him.", "C. ...and I ran."], correct: 0, exp: "'Hardly ... when' бүтэц." },
+
+                { id: 36, type: "text", prompt: "36. Connector: 'She worked late; _____, she missed her train.' (Consequently/Furthermore)", answer: "consequently", exp: "Үр дагаврыг заах 'consequently'." },
+                { id: 37, type: "text", prompt: "37. Modal: 'You _____ not park here. It is a tow-away zone.'", answer: "must", exp: "Хатуу хориг 'must not'." },
+                { id: 38, type: "text", prompt: "38. Past Participle of 'FREEZE':", answer: "frozen", exp: "Freeze -> froze -> frozen." },
+                { id: 39, type: "text", prompt: "39. Fill gap: 'He is dependent _____ his parents for funding.'", answer: "on", exp: "'Dependent on someone'." },
+                { id: 40, type: "text", prompt: "40. Complete: 'In _____ of severe drought, save water.' (case/spite)", answer: "case", exp: "'In case of' (тохиолдолд)." }
+            ]
+        }
+    };
+
+    let currentVariantKey = 'A';
+    let userAnswers = {};
+    let timerInterval = null;
+    let timeRemaining = 4800; // 80 minutes in seconds
+
+    // Initialize Timer
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeRemaining--;
+            let mins = Math.floor(timeRemaining / 60);
+            let secs = timeRemaining % 60;
+            document.getElementById('timer-display').innerText = 
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                submitExam();
+            }
+        }, 1000);
+    }
+
+    function renderExam() {
+        const variant = examDatabase[currentVariantKey];
+        const container = document.getElementById('exam-questions-container');
+        document.getElementById('current-variant-badge').innerText = `Хувилбар ${currentVariantKey === 'C' ? 'В' : currentVariantKey === 'D' ? 'Г' : currentVariantKey}`;
+        
+        let html = '';
+
+        // Reading Comprehension Card (Part 1)
+        html += `
+            <div class="glass-panel p-6 rounded-2xl border border-blue-500/30 space-y-4">
+                <div class="flex items-center gap-2 text-blue-400 font-bold text-sm tracking-wider uppercase">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    PART 1: READING COMPREHENSION PASSAGE
+                </div>
+                <div class="bg-slate-900/90 p-5 rounded-xl border border-slate-700/80 text-slate-200 text-sm leading-relaxed font-sans border-l-4 border-l-blue-500">
+                    ${variant.readingText}
+                </div>
+            </div>
+        `;
+
+        // Combine all questions for layout
+        const allQuestions = [...variant.part1, ...variant.part2, ...variant.part3];
+
+        allQuestions.forEach((qItem) => {
+            const isAnswered = userAnswers[qItem.id] !== undefined && userAnswers[qItem.id] !== "";
+            
+            html += `
+                <div id="q-card-${qItem.id}" class="glass-panel p-6 rounded-2xl border border-slate-700/80 transition-all duration-200 hover:border-slate-600">
+                    <div class="flex items-start justify-between gap-4 mb-3">
+                        <span class="text-xs font-bold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-md">
+                            Даалгавар ${qItem.id}
+                        </span>
+                        <span id="badge-status-${qItem.id}" class="text-xs text-slate-500">${isAnswered ? 'Бөглөсөн' : 'Хариулаагүй'}</span>
+                    </div>
+
+                    <p class="text-slate-100 font-medium text-base mb-4 leading-snug">${qItem.q || qItem.prompt}</p>
+            `;
+
+            // Render Options based on item type
+            if (qItem.options) {
+                // Multiple Choice
+                html += `<div class="space-y-2">`;
+                qItem.options.forEach((opt, idx) => {
+                    const isChecked = userAnswers[qItem.id] === idx;
+                    html += `
+                        <label onclick="handleSelect(${qItem.id}, ${idx})" class="flex items-center gap-3 p-3 rounded-xl border ${isChecked ? 'border-blue-500 bg-blue-500/10' : 'border-slate-800 bg-slate-900/50 hover:bg-slate-800/80'} cursor-pointer transition-all">
+                            <input type="radio" name="q-${qItem.id}" ${isChecked ? 'checked' : ''} class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-slate-300 font-normal">${opt}</span>
+                        </label>
+                    `;
+                });
+                html += `</div>`;
+            } else if (qItem.type === "match") {
+                // Task Match / Sentence match
+                html += `<div class="space-y-2">`;
+                qItem.choices.forEach((choice, idx) => {
+                    const isChecked = userAnswers[qItem.id] === idx;
+                    html += `
+                        <label onclick="handleSelect(${qItem.id}, ${idx})" class="flex items-center gap-3 p-3 rounded-xl border ${isChecked ? 'border-blue-500 bg-blue-500/10' : 'border-slate-800 bg-slate-900/50 hover:bg-slate-800/80'} cursor-pointer transition-all">
+                            <input type="radio" name="q-${qItem.id}" ${isChecked ? 'checked' : ''} class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-slate-300 font-normal">${choice}</span>
+                        </label>
+                    `;
+                });
+                html += `</div>`;
+            } else if (qItem.type === "text") {
+                // Open-ended Gap fill
+                const currentText = userAnswers[qItem.id] || '';
+                html += `
+                    <div>
+                        <input type="text" value="${currentText}" oninput="handleInput(${qItem.id}, this.value)" placeholder="Энд хариултаа латин үсгээр бичнэ үү..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-blue-500 transition-all">
+                    </div>
+                `;
+            }
+
+            // Explanation Container (Hidden until submission)
+            html += `
+                    <div id="exp-container-${qItem.id}" class="hidden mt-4 p-4 rounded-xl bg-blue-950/40 border border-blue-500/30 text-xs text-blue-200 leading-relaxed">
+                        <strong class="text-blue-400 font-bold block mb-1">Монгол Тайлбар ба Дүрмийн Үндэслэл:</strong>
+                        ${qItem.exp}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+        renderNavigator();
+    }
+
+    function renderNavigator() {
+        const nav = document.getElementById('question-navigator');
+        let html = '';
+        let answeredCount = 0;
+
+        for (let i = 1; i <= 40; i++) {
+            const val = userAnswers[i];
+            const isAns = val !== undefined && val !== "";
+            if (isAns) answeredCount++;
+
+            html += `
+                <button onclick="scrollToQuestion(${i})" id="nav-btn-${i}" class="w-full py-2 rounded-lg font-bold text-xs transition-all border ${isAns ? 'bg-blue-600 text-white border-blue-500' : 'bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700'}">
+                    ${i}
+                </button>
+            `;
+        }
+
+        nav.innerHTML = html;
+        document.getElementById('answered-count-badge').innerText = `${answeredCount}/40`;
+    }
+
+    function handleSelect(qId, valIdx) {
+        userAnswers[qId] = valIdx;
+        document.getElementById(`badge-status-${qId}`).innerText = 'Бөглөсөн';
+        document.getElementById(`badge-status-${qId}`).className = 'text-xs text-blue-400 font-semibold';
+        renderNavigator();
+    }
+
+    function handleInput(qId, textVal) {
+        userAnswers[qId] = textVal.trim().toLowerCase();
+        const badge = document.getElementById(`badge-status-${qId}`);
+        if (textVal.trim() !== "") {
+            badge.innerText = 'Бөглөсөн';
+            badge.className = 'text-xs text-blue-400 font-semibold';
+        } else {
+            badge.innerText = 'Хариулаагүй';
+            badge.className = 'text-xs text-slate-500';
+        }
+        renderNavigator();
+    }
+
+    function scrollToQuestion(qId) {
+        const el = document.getElementById(`q-card-${qId}`);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    function switchVariant(variantKey) {
+        currentVariantKey = variantKey;
+        userAnswers = {};
+        
+        document.querySelectorAll('.var-btn').forEach(btn => {
+            btn.className = "var-btn px-3 py-1.5 rounded-lg font-bold text-sm text-slate-400 hover:text-white transition-all duration-200";
+        });
+        document.getElementById(`btn-var-${variantKey}`).className = "var-btn px-3 py-1.5 rounded-lg font-bold text-sm transition-all duration-200 bg-blue-600 text-white shadow-md";
+        
+        renderExam();
+    }
+
+    function submitExam() {
+        const variant = examDatabase[currentVariantKey];
+        const allQuestions = [...variant.part1, ...variant.part2, ...variant.part3];
+        let correctCount = 0;
+        let totalScore = 0; // Out of 100
+
+        allQuestions.forEach((qItem) => {
+            const userVal = userAnswers[qItem.id];
+            const cardEl = document.getElementById(`q-card-${qItem.id}`);
+            const expEl = document.getElementById(`exp-container-${qItem.id}`);
+            const navBtn = document.getElementById(`nav-btn-${qItem.id}`);
+            
+            expEl.classList.remove('hidden'); // Reveal explanations
+
+            let isCorrect = false;
+
+            if (qItem.options || qItem.type === "match") {
+                if (userVal === qItem.correct) {
+                    isCorrect = true;
+                }
+            } else if (qItem.type === "text") {
+                if (userVal && userVal.toString().trim().toLowerCase() === qItem.answer.toString().trim().toLowerCase()) {
+                    isCorrect = true;
+                }
+            }
+
+            if (isCorrect) {
+                correctCount++;
+                totalScore += 2.5; // 40 items x 2.5 pts = 100 total pts
+                cardEl.className = "glass-panel p-6 rounded-2xl border-2 border-emerald-500/80 bg-emerald-950/10";
+                if (navBtn) navBtn.className = "w-full py-2 rounded-lg font-bold text-xs bg-emerald-600 text-white border border-emerald-500";
+            } else {
+                cardEl.className = "glass-panel p-6 rounded-2xl border-2 border-rose-500/80 bg-rose-950/10";
+                if (navBtn) navBtn.className = "w-full py-2 rounded-lg font-bold text-xs bg-rose-600 text-white border border-rose-500";
+            }
+        });
+
+        // Compute Standard Scaling Score (200 - 800)
+        const rawScore = Math.round(totalScore);
+        let scaledScore = Math.round(200 + (rawScore * 6.0));
+        if (scaledScore > 800) scaledScore = 800;
+
+        const percentage = Math.round((correctCount / 40) * 100);
+
+        // Grade Calculation
+        let grade = "F";
+        let feedback = "";
+        if (scaledScore >= 750) {
+            grade = "A+";
+            feedback = "Их дээд сургуулийн тэтгэлэгт тэнцэх өндөр ахисан түвшний гүйцэтгэл! Академик граматик ба академик үгсийн сангийн чадвар маш сайн байна.";
+        } else if (scaledScore >= 680) {
+            grade = "A";
+            feedback = "Онц сайн гүйцэтгэл. ЭЕШ-ын ахисан түвшний шаардлагыг бүрэн хангаж байна. Инверсс болон задарсан нөхөх даалгаврууд дээрх цөөн алдаагаа нягтлаарай.";
+        } else if (scaledScore >= 580) {
+            grade = "B";
+            feedback = "Сайн түвшин. 600+ онооны босгыг давсан байна. Эх уншиж ойлгох хурд ба фразаль үйл үгс дээр нэмэлт бэлтгэл шаардлагатай.";
+        } else if (scaledScore >= 480) {
+            grade = "C";
+            feedback = "Дунджын түвшин. Ахисан түвшний граматик (Inversion, Subjunctive Mood, Conditional Type 3) болон задгай тохируулах хэсэгт илүү анхаарч бэлдэх хэрэгтэй.";
+        } else {
+            grade = "F";
+            feedback = "Суурь дүрмийн ба үгсийн сангийн системтэй давталт шаардлагатай. Даалгавар бүрийн доорх монгол тайлбарыг сайтар уншиж судална уу.";
+        }
+
+        // Update Modal Dashboard
+        document.getElementById('modal-raw-score').innerText = `${rawScore} / 100`;
+        document.getElementById('modal-scaled-score').innerText = scaledScore;
+        document.getElementById('modal-percentage').innerText = `${percentage}%`;
+        document.getElementById('modal-grade').innerText = grade;
+        document.getElementById('modal-feedback').innerText = feedback;
+
+        // Show Modal
+        document.getElementById('results-modal').classList.remove('hidden');
+    }
+
+    function closeResultsModal() {
+        document.getElementById('results-modal').classList.add('hidden');
+        window.scrollTo({ top: document.getElementById('quiz-header-card').offsetTop - 80, behavior: 'smooth' });
+    }
+
+    // App Initialization
+    window.onload = () => {
+        renderExam();
+        startTimer();
+    };
+    </script>
+</body>
+</html>
